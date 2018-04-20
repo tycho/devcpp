@@ -1188,7 +1188,7 @@ begin
       fName := 'TDM-GCC ' + fVersion
     else if ContainsStr(fType, 'tdm') then
       fName := 'TDM-GCC ' + fVersion
-    else if ContainsStr(fType, 'GCC') then
+    else if ContainsStr(fType, 'GCC') or ContainsStr(fType, 'MSYS2') then
       fName := 'MinGW GCC ' + fVersion;
   end;
 
