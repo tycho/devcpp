@@ -1278,7 +1278,9 @@ end;
 
 procedure TdevCompilerSet.SetOptions;
 var
+  i: Integer;
   sl: TStringList;
+  slcopy: TStringList;
 begin
 
   // C options
@@ -1289,7 +1291,7 @@ begin
   // Optimization
   sl := TStringList.Create;
   sl.Add(''); // /!\ Must contain a starting empty value in order to do not have always to pass the parameter
-  sl.Add('This CPU=native');
+  sl.Add('Host CPU=native');
   sl.Add('i386=i386');
   sl.Add('i486=i486');
   sl.Add('i586=i586');
@@ -1302,7 +1304,19 @@ begin
   sl.Add('Pentium 4=pentium4');
   sl.Add('Conroe=core2');
   sl.Add('Nehalem=corei7');
-  sl.Add('Sandy=corei7-avx');
+  sl.Add('Westmere=westmere');
+  sl.Add('Sandy Bridge=corei7-avx');
+  sl.Add('Ivy Bridge=core-avx-i');
+  sl.Add('Haswell=haswell');
+  sl.Add('Broadwell=broadwell');
+  sl.Add('Skylake=skylake');
+  sl.Add('Skylake AVX512=skylake-avx512');
+  sl.Add('Cannonlake=cannonlake');
+  sl.Add('Icelake Client=icelake-client');
+  sl.Add('Icelake Server=icelake-server');
+  sl.Add('Atom=atom');
+  sl.Add('Bonnell=bonnell');
+  sl.Add('Silvermont=silvermont');
   sl.Add('K6=k6');
   sl.Add('K6-2=k6-2');
   sl.Add('K6-3=k6-3');
@@ -1314,39 +1328,19 @@ begin
   sl.Add('K8=k8');
   sl.Add('K8 Rev.E=k8-sse3');
   sl.Add('K10=barcelona');
+  sl.Add('Bobcat=btver1');
+  sl.Add('Jaguar=btver2');
   sl.Add('Bulldozer=bdver1');
+  sl.Add('Piledriver=bdver2');
+  sl.Add('Steamroller=bdver3');
+  sl.Add('Excavator=bdver4');
+  slcopy := TStringList.Create;
+  for i := 0 to sl.count-1 do
+    slcopy.Add(sl.Strings[i]);
   AddOption(ID_COPT_ARCH, ID_COPT_GRP_CODEGEN, True, True, False, 0, '-march=', sl);
 
   // Optimization
-  sl := TStringList.Create;
-  sl.Add(''); // /!\ Must contain a starting empty value in order to do not have always to pass the parameter
-  sl.Add('This CPU=native');
-  sl.Add('i386=i386');
-  sl.Add('i486=i486');
-  sl.Add('i586=i586');
-  sl.Add('i686=i686');
-  sl.Add('Pentium=pentium');
-  sl.Add('Pentium MMX=pentium-mmx');
-  sl.Add('Pentium Pro=pentiumpro');
-  sl.Add('Pentium 2=pentium2');
-  sl.Add('Pentium 3=pentium3');
-  sl.Add('Pentium 4=pentium4');
-  sl.Add('Conroe=core2');
-  sl.Add('Nehalem=corei7');
-  sl.Add('Sandy=corei7-avx');
-  sl.Add('K6=k6');
-  sl.Add('K6-2=k6-2');
-  sl.Add('K6-3=k6-3');
-  sl.Add('Athlon=athlon');
-  sl.Add('Athlon Tbird=athlon-tbird');
-  sl.Add('Athlon 4=athlon-4');
-  sl.Add('Athlon XP=athlon-xp');
-  sl.Add('Athlon MP=athlon-mp');
-  sl.Add('K8=k8');
-  sl.Add('K8 Rev.E=k8-sse3');
-  sl.Add('K10=barcelona');
-  sl.Add('Bulldozer=bdver1');
-  AddOption(ID_COPT_TUNE, ID_COPT_GRP_CODEGEN, True, True, False, 0, '-mtune=', sl);
+  AddOption(ID_COPT_TUNE, ID_COPT_GRP_CODEGEN, True, True, False, 0, '-mtune=', slcopy);
 
   // Built-in processor functions
   sl := TStringList.Create;
