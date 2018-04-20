@@ -2800,8 +2800,11 @@ begin
 
   // Set PATH variable (not overriden by SetCurrentDir)
   if Assigned(devCompilerSets.CompilationSet) then begin // should NOT be false
-    if devCompilerSets.CompilationSet.BinDir.Count > 0 then
-      SetPath(devCompilerSets.CompilationSet.BinDir[0])
+    if devCompilerSets.CompilationSet.BinDir.Count > 0 then begin
+      SetPath(devCompilerSets.CompilationSet.BinDir[0], TRUE);
+      for i := 1 to devCompilerSets.CompilationSet.BinDir.Count - 1 do
+        SetPath(devCompilerSets.CompilationSet.BinDir[i], FALSE);
+      end
     else begin
       LogEntryProc(Format(Lang[ID_LOG_NOBINDIRABORT], [devCompilerSets.CompilationSet.Name]));
       Exit; // returns false
@@ -2859,6 +2862,7 @@ end;
 
 function TMainForm.PrepareForClean(ForcedCompileTarget: TTarget = ctInvalid): Boolean;
 var
+  i: Integer;
   e: TEditor;
 begin
   Result := False;
@@ -2873,8 +2877,11 @@ begin
 
   // Set PATH variable (not overriden by SetCurrentDir)
   if Assigned(devCompilerSets.CompilationSet) then begin // should NOT be false
-    if devCompilerSets.CompilationSet.BinDir.Count > 0 then
-      SetPath(devCompilerSets.CompilationSet.BinDir[0])
+    if devCompilerSets.CompilationSet.BinDir.Count > 0 then begin
+      SetPath(devCompilerSets.CompilationSet.BinDir[0], TRUE);
+      for i := 1 to devCompilerSets.CompilationSet.BinDir.Count - 1 do
+        SetPath(devCompilerSets.CompilationSet.BinDir[i], FALSE);
+      end
     else begin
       LogEntryProc(Format(Lang[ID_LOG_NOBINDIRABORT], [devCompilerSets.CompilationSet.Name]));
       Exit; // returns false
