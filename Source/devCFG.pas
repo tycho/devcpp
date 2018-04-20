@@ -1356,6 +1356,7 @@ begin
   sl.Add('SSE4.1=sse4.1');
   sl.Add('SSE4.2=sse4.2');
   sl.Add('AVX=avx');
+  sl.Add('AVX2=avx2');
   sl.Add('FMA4=fma4');
   sl.Add('XOP=xop');
   sl.Add('AES=aes');
