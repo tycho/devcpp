@@ -97,7 +97,7 @@ var
 begin
   // Check for previous instances (only allow once instance)
   // If we are able to find a previous instance, activate that one instead
-  PrevInstance := GetPreviousInstance;
+  PrevInstance := 0; //GetPreviousInstance;
   if PrevInstance <> 0 then begin
     SendToPreviousInstance(PrevInstance, AnsiString(GetCommandLineW));
     Exit;
